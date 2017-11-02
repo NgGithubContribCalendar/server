@@ -53,8 +53,11 @@ export class RootController {
     Cache.getItem(user, to)
       .then(async cachedItem => {
         if (cachedItem) {
+          res.header('X-cached', '1');
           return cachedItem;
         } else {
+          res.header('X-cached', '0');
+
           const data = await new Promise<string>((resolve, reject) => {
             const url = RootController.constructURL(user, to);
 
