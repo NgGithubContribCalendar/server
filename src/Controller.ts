@@ -36,7 +36,7 @@ export class RootController {
 
   @GET('/')
   static index(req: Request, res: Response) {
-    res.redirect('https://github.com/Alorel/github-contrib-calendar-parser');
+    res.redirect('https://github.com/NgGithubContribCalendar/server');
   }
 
   @GET('/:user')
