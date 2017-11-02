@@ -13,7 +13,8 @@
     "prestart": "npm run build",
     "start": "node src/index.js",
     "snyk-protect": "snyk protect",
-    "postinstall": "npm run snyk-protect"
+    "postinstall": "npm run snyk-protect",
+    "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
   },
   "author": "",
   "license": "MIT",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "ava": "^0.23.0",
+    "coveralls": "^3.0.0",
     "nyc": "^11.2.1"
   },
   "snyk": true
