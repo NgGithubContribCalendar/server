@@ -6,4 +6,6 @@ Parse server for https://github.com/NgGithubContribCalendar
 
 # Usage:
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NgGithubContribCalendar/server.svg)](https://greenkeeper.io/)
+
 `GET https://my-url.com/your_github_username`
