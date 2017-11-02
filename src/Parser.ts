@@ -1,10 +1,7 @@
 import * as $ from 'cheerio';
 import {LazyGetter} from "typescript-lazy-get-decorator";
-import {IMonth} from "./entities/IMonth";
-import {IG} from "./entities/IG";
-import {IRect} from "./entities/IRect";
+import {IG, IMonth, IParsedPayload, IRect} from "@ng-github-contrib-calendar/common-types";
 import {FillMap} from "./entities/Fill";
-import {IParsedPayload} from "./entities/IParsedPayload";
 
 export class Parser implements IParsedPayload {
 

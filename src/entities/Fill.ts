@@ -1,4 +1,4 @@
-export type Fill = 0 | 1 | 2 | 3 | 4;
+import {Fill} from '@ng-github-contrib-calendar/common-types';
 
 export const FillMap: { [fill: string]: Fill } = Object.freeze({
   '#eee': <Fill>0,

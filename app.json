@@ -1,0 +1,31 @@
+{
+  "name": "GitHub contrib calendar parse server",
+  "description": "Retrieves and parses the Github calendar",
+  "repository": "https://github.com/NgGithubContribCalendar/server",
+  "website": "https://github.com/NgGithubContribCalendar/server",
+  "env": {
+    "ALLOWED_ORIGINS": {
+      "description": "A comma-separated list of domain names allowed to use the proxy. Leave blank to allow all origins.",
+      "value": "localhost,127.0.0.1",
+      "required": false
+    },
+    "ALLOWED_USERS": {
+      "description": "A comma-separated list of GitHub usernames allowed to be retrieved. Leave blank to allow all usernames",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "sleep 5"
+  },
+  "addons": [
+    "rediscloud:30"
+  ],
+  "keywords": [
+    "github",
+    "contribution",
+    "contrib",
+    "calendar",
+    "parse",
+    "server"
+  ]
+}

@@ -1,5 +1,5 @@
 import * as redis from 'redis';
-import {IParsedPayload} from "./entities/IParsedPayload";
+import {IParsedPayload} from "@ng-github-contrib-calendar/common-types";
 
 export interface ICache {
   getItem(username: string, to?: string): Promise<null | IParsedPayload>;

@@ -20,7 +20,7 @@
     "prestart": "npm run build",
     "start": "node src/index.js",
     "snyk-protect": "snyk protect",
-    "postinstall": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect",
     "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
   },
   "author": {
@@ -37,6 +37,7 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
+    "@ng-github-contrib-calendar/common-types": "^1.0.2",
     "@types/cheerio": "^0.22.5",
     "@types/express": "^4.0.39",
     "@types/node": "^8.0.47",

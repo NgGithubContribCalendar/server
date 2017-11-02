@@ -1,0 +1,17 @@
+language: node_js
+node_js: 9
+
+cache:
+  directories:
+    - node_modules
+
+services:
+  - redis-server
+
+env:
+  global:
+    - REDISCLOUD_URL=redis://127.0.0.1
+
+before_cache: rm -rf node_modules/.cache
+
+after_success: "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"

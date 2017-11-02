@@ -1,7 +1,7 @@
 import test from 'ava';
 import {Parser} from "../../src/Parser";
 import {loadFixture} from "./_parser-test-utils";
-import {IMonth} from "../../src/entities/IMonth";
+import {IMonth} from "@ng-github-contrib-calendar/common-types";
 
 let parser: Parser;
 

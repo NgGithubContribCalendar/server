@@ -4,9 +4,9 @@ import {Cache} from "./Cache";
 import * as request from 'request';
 import {allowedUsers} from "./name-filter";
 import {originFilter} from "./origin-filter";
-import {IParsedPayload} from "./entities/IParsedPayload";
 import {Parser} from "./Parser";
 import {stdHeaders} from "./stdHeaders";
+import {IParsedPayload} from "@ng-github-contrib-calendar/common-types";
 
 const shrinky = require('shrink-ray')({
   threshold: 1,
