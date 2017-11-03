@@ -1,5 +1,5 @@
 {
-  "name": "GitHub contrib calendar parse server",
+  "name": "GitHub contrib calendar parser",
   "description": "Retrieves and parses the Github calendar",
   "repository": "https://github.com/NgGithubContribCalendar/server",
   "website": "https://github.com/NgGithubContribCalendar/server",
