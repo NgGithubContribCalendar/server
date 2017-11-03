@@ -8,4 +8,4 @@ Parse server for https://github.com/NgGithubContribCalendar
 
 # Usage:
 
-`GET https://my-url.com/your_github_username`
+`GET https://my-url.com/fetch/your_github_username`
