@@ -1,12 +1,12 @@
 import {Controller, ControllerMiddleware, GET, RouteMiddleware} from "express-decorated-router/dist";
 import {Request, Response} from "express";
-import {Cache} from "./Cache";
-import * as request from 'request';
-import {allowedUsers} from "./name-filter";
-import {originFilter} from "./origin-filter";
-import {Parser} from "./Parser";
-import {stdHeaders} from "./stdHeaders";
+import {Cache} from "./utils/Cache";
+import {allowedUsers} from "./middleware/name-filter";
+import {originFilter} from "./middleware/origin-filter";
+import {Parser} from "./utils/Parser";
+import {stdHeaders} from "./middleware/stdHeaders";
 import {IParsedPayload} from "@ng-github-contrib-calendar/common-types";
+import {fetchHTML} from "./utils/Fetcher";
 
 const shrinky = require('shrink-ray')({
   threshold: 1,
@@ -24,22 +24,12 @@ const toRegex = /^\d{4}-\d{2}-\d{2}$/;
 @ControllerMiddleware(shrinky, stdHeaders)
 export class RootController {
 
-  private static constructURL(user: string, to?: string): string {
-    let url = `https://github.com/users/${user}/contributions`;
-
-    if (to) {
-      url += `?to=${to}`;
-    }
-
-    return url;
-  }
-
   @GET('/')
   static index(req: Request, res: Response) {
     res.redirect('https://github.com/NgGithubContribCalendar/server');
   }
 
-  @GET('/:user')
+  @GET('/fetch/:user')
   @RouteMiddleware(originFilter, allowedUsers)
   static load(req: Request, res: Response) {
     const to: string = req.query.to;
@@ -58,19 +48,7 @@ export class RootController {
         } else {
           res.header('X-cached', '0');
 
-          const data = await new Promise<string>((resolve, reject) => {
-            const url = RootController.constructURL(user, to);
-
-            request.get(url, (err: any, rsp: any, data: string) => {
-              if (err) {
-                reject(err);
-              } else if (!data) {
-                reject(new Error('no body'));
-              } else {
-                resolve(data);
-              }
-            });
-          });
+          const data = await fetchHTML(user, to);
 
           const parser = new Parser(data).toJSON();
           Cache.setItem(parser, user, to).catch(console.error);

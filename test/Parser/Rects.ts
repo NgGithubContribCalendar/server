@@ -1,5 +1,5 @@
 import test from 'ava';
-import {Parser} from "../../src/Parser";
+import {Parser} from "../../src/utils/Parser";
 import {loadFixture} from "./_parser-test-utils";
 
 let parser: Parser;
