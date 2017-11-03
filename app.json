@@ -6,7 +6,6 @@
   "env": {
     "ALLOWED_ORIGINS": {
       "description": "A comma-separated list of domain names allowed to use the proxy. Leave blank to allow all origins.",
-      "value": "localhost,127.0.0.1",
       "required": false
     },
     "ALLOWED_USERS": {
