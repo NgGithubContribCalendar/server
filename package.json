@@ -1,6 +1,6 @@
 {
   "name": "github-calendar-parse-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Retrieves and parses the Github calendar",
   "main": "src/index.js",
   "private": true,
@@ -17,8 +17,8 @@
     "clean": "rimraf src/**/*.js src/**/*.map test/**/*.js test/**/*.map src/**/*.d.ts test/**/*.d.ts",
     "build": "npm run clean && tsc",
     "watch": "npm run clean && tsc --watch",
-    "prestart": "npm run build",
     "start": "node src/index.js",
+    "postinstall": "npm run build",
     "snyk-wizard": "snyk wizard",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
