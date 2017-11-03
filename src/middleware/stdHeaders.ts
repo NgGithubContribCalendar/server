@@ -5,6 +5,6 @@ export const stdHeaders: RequestHandler = (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('X-Frame-Options', 'deny');
   res.header('X-Powered-By', "Trump's tiny cocktail sausage fingers");
-  res.header('X-serviced-by', req.app.get('workerID'));
+  res.header('X-serviced-By', req.app.get('workerID'));
   setImmediate(next);
 };

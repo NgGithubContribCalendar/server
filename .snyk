@@ -5,7 +5,7 @@ ignore: {}
 patch:
   'npm:debug:20170905':
     - shrink-ray > debug:
-        patched: '2017-11-02T02:11:18.305Z'
+        patched: '2017-11-03T19:18:03.532Z'
   'npm:ms:20170412':
     - shrink-ray > debug > ms:
-        patched: '2017-11-02T02:11:18.305Z'
+        patched: '2017-11-03T19:18:03.532Z'

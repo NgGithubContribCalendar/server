@@ -12,13 +12,14 @@
   "homepage": "https://github.com/NgGithubContribCalendar/server",
   "scripts": {
     "pretest": "npm run clean && rimraf coverage .nyc_output && tsc -p tsconfig.test.json",
-    "test": "nyc ava --verbose",
+    "test": "nyc ava",
     "posttest": "npm run clean",
     "clean": "rimraf src/**/*.js src/**/*.map test/**/*.js test/**/*.map src/**/*.d.ts test/**/*.d.ts",
     "build": "npm run clean && tsc",
     "watch": "npm run clean && tsc --watch",
     "prestart": "npm run build",
     "start": "node src/index.js",
+    "snyk-wizard": "snyk wizard",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
     "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
@@ -58,9 +59,13 @@
     "typescript-lazy-get-decorator": "^1.0.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.80",
+    "@types/supertest": "^2.0.3",
     "ava": "^0.23.0",
     "coveralls": "^3.0.0",
-    "nyc": "^11.2.1"
+    "lodash": "^4.17.4",
+    "nyc": "^11.2.1",
+    "supertest": "^3.0.0"
   },
   "snyk": true
 }
