@@ -1,5 +1,6 @@
-import * as request from 'request';
-import {RequestResponse} from 'request';
+import {defaults, RequestResponse} from 'request';
+
+const request = defaults({gzip: true});
 
 function constructURL(user: string, to?: string): string {
   let url = `https://github.com/users/${user}/contributions`;
