@@ -1,5 +1,5 @@
 language: node_js
-node_js: 8
+node_js: 9
 
 cache:
   directories:
@@ -8,10 +8,20 @@ cache:
 services:
   - redis-server
 
+script:
+  - if [ $SNYK_TOKEN ]; then snyk test; fi;
+  - npm test
+
 env:
   global:
     - REDISCLOUD_URL=redis://127.0.0.1
+    - secure: "TpNQ41i6s7S126IQeBOVxszK1i9X/s3cnk7F3gofPTwW/vaYp7CJ8sxVr2D9O36Px8rYwfMQyrIxhjD0PQALMgTWR6ik/eg94uI5b7GiUhN6SYHDj7QYFhyDcAjwdkQbx/Sfxw7+i6aFuj4He57E95/4N3GPa999XZfPecRj4qr+edoE3y6UNohGLe4Obl5VqqinrsTCVm3GMByoglzKgL8Nmvvo3TuyrYpBm6yRN2D3DY713uLoHQv2GhkEeaxzozicGYBMEdzzAuZXrwe6crMdX4M3B5Xb9O4sHQ3I8ne5Ya1xfmyuQpTfM9fL01jHuQeFwokRpSrw0gXMr4aXdWl1Vg66k3bMUz0zXpSBg5sUeyVjgUo8yMz5gmFErEkTKUiperCt6YbOJvetv1k0lubCVKmj3J0l6zaVkKB2TYniGVRE1FI6jj6Wa4pUyS+0tgDQ4V8Bl479Sr7hrvngRiexa0I61iqbWDSB12Iv5Pe7XA0kMR2EtxV4ErI10k62yFKyTGqcFMyBnbkv+Ei4GcnYkwvACApYBbJj81cf84a/quCphxmZQFuaECqAEMsTI+caHh4n7bpibdFesd8CQfxF6B0FGv8Y29E/s9edWVgMkL4lS7QFZbEEtEZ4P02C8UaW1NJnd8YnWvEpJreeWAbQbNbNV1KLKqIww9xiQnk="
+    - secure: "p+Ds4uL18bAhVAf81YO9IY3azsJkM44/8UcLw7ATroAwxbfjoyipZjS9znPzMd9mWxl3NfFSLAqAcICHvKGEaV3W7898LvidFQ9g8YltlzeuLrId3hf0JbXZEw+DsubFZkZHFWkoNncPow6fEGcqySvoXbsZeQRR+9/juhhitx2GlQMXqcYvq0D8ZoC7WgSpC8ABVAiRH/HLRL1EEzY4IVUw2YLFQ8bzBDy4MfjUdwc01ceT19RouguXsu8umUE1pOhFh7C/SQwQayhQousg6dVDZUvRu/e8Ca3PSl5UiBp4IzXTY0xjWCYwX4sbZLFcDHKLGBSU/HOgVNe76tHxSXHQ/i8UEJQzgjvNq37UulMN7HjtB8L/shDNFtOd0VIkaInrNuSBB5BxUwtJk2isP8DbLIJ/LSAiyl2TM8gTTd6pPG9G48x76W7MQTel+vm43K6HRDeGiXl8yflqyt6QG6tfgWbr8Yr4BU80yB4nKp8envJlZ2yxGk7tUb6bCqT3bJfrO6WubzV/fWIrZbL8P7ezo+IfwKBsDeqgtgO/KYTbUpEHXI8om+954wy93y0KH0x+F/G1Z01IsvZPs2p7+l9XEDGi0mP1BAW763mLzhKUytJ0R6CBnNArCSMGfH3NhOOyQ0BgfJWvQUY8D4wmWaPRYaPx77mxWx5swHi8oeE="
 
 before_cache: rm -rf node_modules/.cache
 
-after_success: "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+after_success: cat ./coverage/lcov.info | coveralls
+before_script: greenkeeper-lockfile-update
+after_script:
+  - if [ $GH_TOKEN ]; then greenkeeper-lockfile-upload; fi;
+  - if [ $SNYK_TOKEN ]; then snyk monitor; fi;
