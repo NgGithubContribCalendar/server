@@ -1,11 +1,11 @@
+import {IMonth} from '@ng-github-contrib-calendar/common-types';
 import test from 'ava';
-import {Parser} from "../../src/utils/Parser";
-import {loadFixture} from "./_parser-test-utils";
-import {IMonth} from "@ng-github-contrib-calendar/common-types";
+import {Parser} from '../../src/utils/Parser';
+import {loadFixture} from './_parser-test-utils';
 
 let parser: Parser;
 
-test.before(async () => {
+test.before(async() => {
   parser = new Parser(await loadFixture());
 });
 
@@ -31,6 +31,6 @@ for (let i = 0; i < combos.length; i++) {
   });
 }
 
-test("Lengths match", t => {
+test('Lengths match', t => {
   t.is(parser.months.length, parser.months$.length);
 });

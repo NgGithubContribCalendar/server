@@ -1,20 +1,21 @@
-import {Controller, ControllerMiddleware, GET, RouteMiddleware} from "express-decorated-router/dist";
-import {Request, Response} from "express";
-import {Cache} from "./utils/Cache";
-import {allowedUsers} from "./middleware/name-filter";
-import {originFilter} from "./middleware/origin-filter";
-import {Parser} from "./utils/Parser";
-import {stdHeaders} from "./middleware/stdHeaders";
-import {IParsedPayload} from "@ng-github-contrib-calendar/common-types";
-import {fetchHTML} from "./utils/Fetcher";
+import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
+import {Request, Response} from 'express';
+import {Controller, ControllerMiddleware, GET, RouteMiddleware} from 'express-decorated-router/dist';
+import {allowedUsers} from './middleware/name-filter';
+import {originFilter} from './middleware/origin-filter';
+import {stdHeaders} from './middleware/stdHeaders';
+import {Cache} from './utils/Cache';
+import {fetchHTML} from './utils/Fetcher';
+import {Parser} from './utils/Parser';
+import {StatusCode} from './utils/StatusCode';
 
-const shrinky = require('shrink-ray')({
+const shrinky = require('shrink-ray')({ // tslint:disable-line:no-var-requires
+  brotli: {
+    quality: 11
+  },
   threshold: 1,
   zlib: {
     level: 9
-  },
-  brotli: {
-    quality: 11
   }
 });
 
@@ -25,17 +26,19 @@ const toRegex = /^\d{4}-\d{2}-\d{2}$/;
 export class RootController {
 
   @GET('/')
-  static index(req: Request, res: Response) {
+  public static index(req: Request, res: Response) {
     res.redirect('https://github.com/NgGithubContribCalendar/server');
   }
 
   @GET('/fetch/:user')
   @RouteMiddleware(originFilter, allowedUsers)
-  static load(req: Request, res: Response) {
+  public static load(req: Request, res: Response) {
     const to: string = req.query.to;
 
     if (to && (typeof to !== 'string' || !toRegex.test(to))) {
-      return res.status(400).end(`to must be a string matching the regex ${toRegex}`);
+      res.status(StatusCode.BAD_REQUEST).end(`to must be a string matching the regex ${toRegex}`);
+
+      return;
     }
 
     const user: string = req.params.user;
@@ -44,6 +47,7 @@ export class RootController {
       .then(async cachedItem => {
         if (cachedItem) {
           res.header('X-cached', '1');
+
           return cachedItem;
         } else {
           res.header('X-cached', '0');
@@ -51,6 +55,7 @@ export class RootController {
           const data = await fetchHTML(user, to);
 
           const parser = new Parser(data).toJSON();
+          // tslint:disable-next-line:no-unbound-method
           Cache.setItem(parser, user, to).catch(console.error);
 
           return parser;
@@ -60,12 +65,12 @@ export class RootController {
         res.json(data);
       })
       .catch(e => {
-        res.status(500).end(e.message || e);
+        res.status(StatusCode.SERVER_ERROR).end(e.message || e);
       });
   }
 
   @GET('/ping')
-  static ping(req: Request, res: Response) {
+  public static ping(req: Request, res: Response) {
     res.end('pong');
   }
 }

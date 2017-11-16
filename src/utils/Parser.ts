@@ -1,31 +1,32 @@
+import {IG, IMonth, IParsedPayload, IRect} from '@ng-github-contrib-calendar/common-types';
 import * as $ from 'cheerio';
-import {LazyGetter} from "typescript-lazy-get-decorator";
-import {IG, IMonth, IParsedPayload, IRect} from "@ng-github-contrib-calendar/common-types";
-import {FillMap} from "../Fill";
+import {LazyGetter} from 'typescript-lazy-get-decorator';
+import {FILL_MAP} from '../Fill';
+import {Numerics} from './Numerics';
 
 export class Parser implements IParsedPayload {
 
-  constructor(private readonly html: string) {
+  public constructor(private readonly html: string) {
 
   }
 
   @LazyGetter()
-  get gs$(): Cheerio {
+  public get gs$(): Cheerio {
     return this.svg$.find('>g>g');
   }
 
   @LazyGetter()
-  get gs(): IG[] {
+  public get gs(): IG[] {
     const igs: IG[] = [];
 
-    this.gs$.each(function (this: any, index, element) {
+    this.gs$.each(function(this: any) {
       const ig: IG = [];
 
-      $(this).find('.day').each((index, element) => {
+      $(this).find('.day').each((i, el) => {
         const rect: IRect = {
-          count: parseInt(element.attribs['data-count'].trim()),
-          date: element.attribs['data-date'].trim(),
-          fill: FillMap[element.attribs.fill.trim()]
+          count: parseInt(el.attribs['data-count'].trim(), Numerics.RADIX),
+          date: el.attribs['data-date'].trim(),
+          fill: FILL_MAP[el.attribs.fill.trim()]
         };
 
         ig.push(rect);
@@ -38,18 +39,18 @@ export class Parser implements IParsedPayload {
   }
 
   @LazyGetter()
-  get months$(): Cheerio {
+  public get months$(): Cheerio {
     return this.svg$.find('>g>.month');
   }
 
   @LazyGetter()
-  get months(): IMonth[] {
+  public get months(): IMonth[] {
     const out: IMonth[] = [];
 
-    this.months$.each(function (this: any, index, element) {
+    this.months$.each(function(this: any, index, element) {
       const month: IMonth = {
-        x: parseInt(element.attribs.x),
-        txt: $(this).text().trim()
+        txt: $(this).text().trim(),
+        x: parseInt(element.attribs.x, Numerics.RADIX),
       };
 
       out.push(month);
@@ -59,14 +60,14 @@ export class Parser implements IParsedPayload {
   }
 
   @LazyGetter()
-  get svg$(): Cheerio {
+  public get svg$(): Cheerio {
     return $.load(this.html).root().find('svg').first();
   }
 
-  toJSON(): IParsedPayload {
+  public toJSON(): IParsedPayload {
     return {
-      months: this.months,
-      gs: this.gs
+      gs: this.gs,
+      months: this.months
     };
   }
 }

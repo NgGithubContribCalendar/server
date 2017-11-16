@@ -1,25 +1,25 @@
 import test from 'ava';
-import {fetchHTML} from "../src/utils/Fetcher";
-import {Parser} from "../src/utils/Parser";
+import {fetchHTML} from '../src/utils/Fetcher';
+import {Parser} from '../src/utils/Parser';
 
 interface Prs {
-  date: Parser,
-  noDate: Parser
+  date: Parser;
+  noDate: Parser;
 }
 
 let parsers: Prs;
 
-test.before("Fetch data", async () => {
+test.before('Fetch data', async() => {
   const noDate = fetchHTML('Alorel');
   const date = fetchHTML('Alorel', '2017-01-01');
 
   parsers = {
-    noDate: new Parser(await noDate),
-    date: new Parser(await date)
+    date: new Parser(await date),
+    noDate: new Parser(await noDate)
   };
 });
 
-test("Invalid username", t => {
+test('Invalid username', t => {
   return fetchHTML(Math.random().toString())
     .then(r => {
       console.log(r);
@@ -43,8 +43,8 @@ test("Invalid username", t => {
 
   test(`Parser ${type}: JSON.stringify`, t => {
     const expect = JSON.stringify({
-      months: parsers[type].months,
-      gs: parsers[type].gs
+      gs: parsers[type].gs,
+      months: parsers[type].months
     });
 
     const actual = JSON.stringify(parsers[type]);
@@ -53,10 +53,9 @@ test("Invalid username", t => {
   });
 });
 
-test("Parser contents differ", t => {
+test('Parser contents differ', t => {
   const p1 = JSON.stringify(parsers.date);
   const p2 = JSON.stringify(parsers.noDate);
 
   t.false(p1 === p2);
 });
-

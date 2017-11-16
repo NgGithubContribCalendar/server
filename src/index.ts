@@ -1,10 +1,11 @@
+import {Application} from 'express';
+import {cpus} from 'os';
 import * as throng from 'throng';
-import {Application} from "express";
 
-throng(require('os').cpus().length, workerID => {
+throng(cpus().length, workerID => {
   console.log(`Starting worker ${workerID}`);
 
-  const app: Application = require('./app').app;
+  const app: Application = require('./app').app; // tslint:disable-line:no-var-requires
   app.set('workerID', `Shard ${workerID.toLocaleString()}`);
 
   app.listen(app.get('port'), () => {

@@ -1,4 +1,4 @@
-import {RequestHandler} from "express";
+import {RequestHandler} from 'express';
 
 export const stdHeaders: RequestHandler = (req, res, next) => {
   res.header('X-Content-Type-Options', 'nosniff');

@@ -1,5 +1,6 @@
+import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import * as redis from 'redis';
-import {IParsedPayload} from "@ng-github-contrib-calendar/common-types";
+import {Numerics} from './Numerics';
 
 export interface ICache {
   getItem(username: string, to?: string): Promise<null | IParsedPayload>;
@@ -9,7 +10,7 @@ export interface ICache {
 
 const calcKey = (username: string, to?: string): string => `${username}|${to || ''}`;
 
-export let Cache: ICache;
+export let Cache: ICache; // tslint:disable-line:variable-name
 
 if (process.env.REDISCLOUD_URL) {
   const client = redis.createClient(process.env.REDISCLOUD_URL);
@@ -28,13 +29,13 @@ if (process.env.REDISCLOUD_URL) {
     },
     setItem(data: IParsedPayload, username: string, to?: string) {
       return new Promise((resolve, reject) => {
-        client.setex(calcKey(username, to), 3600, JSON.stringify(data), err => {
+        client.setex(calcKey(username, to), Numerics.SECONDS_IN_HOUR, JSON.stringify(data), err => {
           if (err) {
             reject(err);
           } else {
             resolve();
           }
-        })
+        });
       });
     }
   };

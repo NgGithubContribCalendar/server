@@ -1,4 +1,5 @@
-import {RequestHandler} from "express";
+import {RequestHandler} from 'express';
+import {StatusCode} from '../utils/StatusCode';
 
 export let allowedUsers: RequestHandler;
 
@@ -8,9 +9,9 @@ if (process.env.ALLOWED_USERS) {
 
   allowedUsers = (req, res, next) => {
     if (!req.params.user) {
-      res.status(400).end('Could not determine username');
+      res.status(StatusCode.BAD_REQUEST).end('Could not determine username');
     } else if (!allowed.includes(req.params.user.toLowerCase())) {
-      res.status(403).end(`User ${req.params.user} not allowed.`);
+      res.status(StatusCode.FORBIDDEN).end(`User ${req.params.user} not allowed.`);
     } else {
       setImmediate(next);
     }
@@ -18,5 +19,5 @@ if (process.env.ALLOWED_USERS) {
 } else {
   allowedUsers = ((req, res, next) => {
     setImmediate(next);
-  })
+  });
 }

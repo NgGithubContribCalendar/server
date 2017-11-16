@@ -10,6 +10,7 @@ services:
 
 script:
   - if [ $SNYK_TOKEN ]; then snyk test; fi;
+  - npm run tslint
   - npm test
 
 env:

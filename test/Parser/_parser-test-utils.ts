@@ -1,5 +1,5 @@
-import {readFile} from "fs";
-import {join} from "path";
+import {readFile} from 'fs';
+import {join} from 'path';
 
 export function loadFixture(): Promise<string> {
   return new Promise<string>((resolve, reject) => {
@@ -10,5 +10,5 @@ export function loadFixture(): Promise<string> {
         resolve(data);
       }
     });
-  })
+  });
 }

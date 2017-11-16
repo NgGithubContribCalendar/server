@@ -1,11 +1,11 @@
 process.env.ALLOWED_USERS = 'X,y, Z';
-
-import {Controller, ControllerLoader, GET, RouteMiddleware} from "express-decorated-router/dist";
-import {allowedUsers} from "../../src/middleware/name-filter";
-import test from 'ava';
+import {test} from 'ava';
 import * as express from 'express';
-import {Request, Response} from 'express';
+import {Request, Response} from 'express'; // tslint:disable-line:no-duplicate-imports
+import {Controller, ControllerLoader, GET, RouteMiddleware} from 'express-decorated-router/dist';
 import * as request from 'supertest';
+import {allowedUsers} from '../../src/middleware/name-filter';
+import {StatusCode} from '../../src/utils/StatusCode';
 
 const app = express();
 
@@ -14,13 +14,13 @@ class Ctrl {
 
   @GET('/fetch/:user')
   @RouteMiddleware(allowedUsers)
-  static f(req: Request, res: Response) {
+  public static f(req: Request, res: Response) {
     res.end('ok');
   }
 
   @GET('/')
   @RouteMiddleware(allowedUsers)
-  static nf(req: Request, res: Response) {
+  public static nf(req: Request, res: Response) {
     res.end('ok');
   }
 }
@@ -31,24 +31,24 @@ for (const u of ['x', 'Y', 'z']) {
   test(`Allow ${u}`, t => {
     return request(app)
       .get(`/fetch/${u}`)
-      .expect(200)
+      .expect(StatusCode.OK)
       .then(() => t.pass())
       .catch((e: Error) => t.fail(e.message));
   });
 }
 
-test("Disallow", t => {
+test('Disallow', t => {
   return request(app)
     .get('/fetch/a')
-    .expect(403, 'User a not allowed.')
+    .expect(StatusCode.FORBIDDEN, 'User a not allowed.')
     .then(() => t.pass())
     .catch((e: Error) => t.fail(e.message));
 });
 
-test("No user", t => {
+test('No user', t => {
   return request(app)
     .get('/')
-    .expect(400, 'Could not determine username')
+    .expect(StatusCode.BAD_REQUEST, 'Could not determine username')
     .then(() => t.pass())
     .catch((e: Error) => t.fail(e.message));
 });

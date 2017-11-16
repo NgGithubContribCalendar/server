@@ -1,4 +1,5 @@
 import {defaults, RequestResponse} from 'request';
+import {StatusCode} from './StatusCode';
 
 const request = defaults({gzip: true});
 
@@ -21,11 +22,11 @@ export function fetchHTML(user: string, to?: string): Promise<string> {
         reject(err);
       } else if (!data) {
         reject(new Error('no body'));
-      } else if (rsp.statusCode >= 400) {
-        reject(new Error(rsp.statusMessage))
+      } else if (rsp.statusCode >= StatusCode.BAD_REQUEST) { // tslint:disable-line:no-magic-numbers
+        reject(new Error(rsp.statusMessage));
       } else {
         resolve(data);
       }
     });
-  })
+  });
 }

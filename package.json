@@ -6,7 +6,7 @@
   "private": true,
   "keywords": [],
   "engines": {
-    "node": "^8.9",
+    "node": "^9.0",
     "npm": ">=5.5"
   },
   "homepage": "https://github.com/NgGithubContribCalendar/server",
@@ -18,10 +18,13 @@
     "build": "npm run clean && tsc",
     "watch": "npm run clean && tsc --watch",
     "start": "node src/index.js",
+    "tslint": "tslint -p tsconfig.test.json -s node_modules/custom-tslint-formatters/formatters -t grouped '**/*.ts'",
+    "tslint:fix": "tslint -p tsconfig.test.json --fix -s node_modules/custom-tslint-formatters/formatters -t grouped '**/*.ts'",
     "postinstall": "npm run build",
     "snyk-wizard": "snyk wizard",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
+    "precommit": "npm run tslint:fix",
     "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
   },
   "author": {
@@ -63,10 +66,13 @@
     "@types/supertest": "^2.0.3",
     "ava": "^0.23.0",
     "coveralls": "^3.0.0",
+    "husky": "^0.14.3",
+    "custom-tslint-formatters": "^2.1.1",
     "greenkeeper-lockfile": "^1.12.0",
     "lodash": "^4.17.4",
     "nyc": "^11.2.1",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "tslint": "^5.8.0"
   },
   "snyk": true
 }
