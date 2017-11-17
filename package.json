@@ -1,6 +1,6 @@
 {
   "name": "github-calendar-parse-server",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Retrieves and parses the Github calendar",
   "main": "src/index.js",
   "private": true,
