@@ -10,14 +10,17 @@ Parse server for https://github.com/NgGithubContribCalendar
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://www.heroku.com/deploy/?template=https://github.com/NgGithubContribCalendar/server)
 
+# Configuration
+
+All environment variables are optional
+
+* **ALLOWED_ORIGINS**: A comma-separated list of domain names allowed to use the proxy. Omit to allow all origins.
+* **ALLOWED_USERS**: A comma-separated list of GitHub usernames allowed to be retrieved. Omit to allow all usernames.
+* **REDISCLOUD_URL**: A Redis connection string for caching. Omit to disable cache. This is set automatically if you deploy to Heroku using the button above.
+
 # Usage
 
 Assuming your app is located at `https://example.com` and your GitHub username is `GithubStar`:
 
-**Get the latest contributions**:
-
-`GET https://example.com/fetch/GithubStar`
-
-**Get the contributions from the year leading up to the 1st of November, 2015**:
-
-`GET https://example.com/fetch/GithubStar?to=2015-11-01`
+* **Get the latest contributions**: `GET https://example.com/fetch/GithubStar`
+* **Get the contributions from the year leading up to the 1st of November, 2015**: `GET https://example.com/fetch/GithubStar?to=2015-11-01`
