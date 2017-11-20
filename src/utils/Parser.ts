@@ -50,7 +50,7 @@ export class Parser implements IParsedPayload {
     this.months$.each(function(this: any, index, element) {
       const month: IMonth = {
         txt: $(this).text().trim(),
-        x: parseInt(element.attribs.x, Numerics.RADIX),
+        x: parseInt(element.attribs.x, Numerics.RADIX)
       };
 
       out.push(month);

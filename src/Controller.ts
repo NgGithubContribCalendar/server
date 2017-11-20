@@ -9,7 +9,7 @@ import {fetchHTML} from './utils/Fetcher';
 import {Parser} from './utils/Parser';
 import {StatusCode} from './utils/StatusCode';
 
-const shrinky = require('shrink-ray')({ // tslint:disable-line:no-var-requires
+const shrinky = require('shrink-ray-current')({ // tslint:disable-line:no-var-requires
   brotli: {
     quality: 11
   },

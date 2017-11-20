@@ -23,7 +23,7 @@ const stdHeaders = {
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'deny',
-  'X-Powered-By': "Trump's tiny cocktail sausage fingers",
+  'X-Powered-By': 'Trump\'s tiny cocktail sausage fingers',
   'X-serviced-By': 'foo'
 };
 
