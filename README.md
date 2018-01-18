@@ -3,7 +3,6 @@ Parse server for https://github.com/NgGithubContribCalendar
 [![Coverage Status](https://img.shields.io/coveralls/github/NgGithubContribCalendar/server/master.svg?style=flat-square)](https://coveralls.io/github/NgGithubContribCalendar/server?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/NgGithubContribCalendar/server.svg)](https://greenkeeper.io/)
 [![Build Status](https://img.shields.io/travis/NgGithubContribCalendar/server/master.svg?style=flat-square)](https://travis-ci.org/NgGithubContribCalendar/server)
-![Known Vulnerabilities](https://snyk.io/test/github/NgGithubContribCalendar/server/badge.svg)
 [![License](https://img.shields.io/github/license/NgGithubContribCalendar/server.svg?style=flat-square)](https://github.com/NgGithubContribCalendar/server/blob/master/LICENSE)
 ![Dependencies](https://img.shields.io/david/NgGithubContribCalendar/server.svg?style=flat-square)
 ![Dev Dependencies](https://img.shields.io/david/dev/NgGithubContribCalendar/server.svg?style=flat-square)
