@@ -1,6 +1,6 @@
 {
   "name": "github-calendar-parse-server",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Retrieves and parses the Github calendar",
   "main": "src/index.js",
   "private": true,
@@ -21,9 +21,6 @@
     "tslint": "tslint -p tsconfig.test.json -s node_modules/custom-tslint-formatters/formatters -t grouped '**/*.ts'",
     "tslint:fix": "tslint -p tsconfig.test.json --fix -s node_modules/custom-tslint-formatters/formatters -t grouped '**/*.ts'",
     "postinstall": "npm run build",
-    "snyk-wizard": "snyk wizard",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect",
     "precommit": "npm run tslint:fix",
     "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
   },
@@ -54,8 +51,7 @@
     "redis": "^2.8.0",
     "request": "^2.83.0",
     "rimraf": "^2.6.2",
-    "shrink-ray-current": "^2.0.0",
-    "snyk": "^1.47.0",
+    "shrink-ray-current": "^2.1.0",
     "throng": "^4.0.0",
     "tslib": "^1.8.0",
     "typescript": "^2.6.1",
@@ -73,6 +69,5 @@
     "nyc": "^11.2.1",
     "supertest": "^3.0.0",
     "tslint": "^5.8.0"
-  },
-  "snyk": true
+  }
 }

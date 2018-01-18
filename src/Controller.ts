@@ -1,6 +1,7 @@
 import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import {Request, Response} from 'express';
 import {Controller, ControllerMiddleware, GET, RouteMiddleware} from 'express-decorated-router/dist';
+import shrinkRay = require('shrink-ray-current');
 import {allowedUsers} from './middleware/name-filter';
 import {originFilter} from './middleware/origin-filter';
 import {stdHeaders} from './middleware/stdHeaders';
@@ -9,7 +10,7 @@ import {fetchHTML} from './utils/Fetcher';
 import {Parser} from './utils/Parser';
 import {StatusCode} from './utils/StatusCode';
 
-const shrinky = require('shrink-ray-current')({ // tslint:disable-line:no-var-requires
+const shrinky = shrinkRay({
   brotli: {
     quality: 11
   },

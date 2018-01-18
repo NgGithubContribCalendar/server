@@ -9,7 +9,6 @@ services:
   - redis-server
 
 script:
-  - if [ $SNYK_TOKEN ]; then snyk test; fi;
   - npm run tslint
   - npm test
 
@@ -22,7 +21,7 @@ env:
 before_cache: rm -rf node_modules/.cache
 
 after_success: cat ./coverage/lcov.info | coveralls
-before_script: greenkeeper-lockfile-update
+before_script:
+  - if [ $GH_TOKEN ]; then greenkeeper-lockfile-update; fi;
 after_script:
   - if [ $GH_TOKEN ]; then greenkeeper-lockfile-upload; fi;
-  - if [ $SNYK_TOKEN ]; then snyk monitor; fi;
