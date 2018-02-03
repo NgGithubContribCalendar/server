@@ -22,7 +22,7 @@
     "start": "node src/index.js",
     "tslint": "tslint -p tsconfig.test.json -s node_modules/custom-tslint-formatters/formatters -t grouped",
     "tslint:fix": "npm run tslint -- --fix",
-    "_postinstall": "npm run build",
+    "postinstall": "npm run build",
     "reinstall": "rm -rf node_modules package-lock.json && npm install && git add package-lock.json"
   },
   "author": {
