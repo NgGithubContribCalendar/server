@@ -4,8 +4,8 @@
     "exclude": [
       "**/*.d.ts",
       "**/*.js",
-      "**/node_modules/**/*",
-      "**/coverage/**/*"
+      "node_modules*",
+      "coverage"
     ]
   },
   "rules": {

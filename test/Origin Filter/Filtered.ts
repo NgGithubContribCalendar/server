@@ -1,25 +1,24 @@
 process.env.ALLOWED_ORIGINS = 'loCaLhost,127.0.0.1, example.com';
 import {test} from 'ava';
-import * as express from 'express';
-import {Request, Response} from 'express'; // tslint:disable-line:no-duplicate-imports
-import {Controller, ControllerLoader, GET, RouteMiddleware} from 'express-decorated-router/dist';
+import * as e from 'express';
+import {Controller, ExpressDecoratedRouter, GET, RouteMiddleware} from 'express-decorated-router';
 import * as request from 'supertest';
 import {originFilter} from '../../src/middleware/origin-filter';
 import {StatusCode} from '../../src/utils/StatusCode';
 
-const app = express();
+const app = e();
 
 @Controller('/')
-class Ctrl {
+export class Ctrl {
 
   @GET('/')
   @RouteMiddleware(originFilter)
-  public static f(req: Request, res: Response) {
+  public static f(_req: e.Request, res: e.Response) {
     res.end('ok');
   }
 }
 
-new ControllerLoader(app).loadController(Ctrl);
+ExpressDecoratedRouter.applyRoutes(app).reset();
 
 for (const o of ['localhost', '127.0.0.1', 'example.com']) {
   test(`Allow ${o}`, t => {
@@ -29,7 +28,7 @@ for (const o of ['localhost', '127.0.0.1', 'example.com']) {
       .expect(StatusCode.OK)
       .expect('Access-Control-Allow-Origin', '*')
       .then(() => t.pass())
-      .catch((e: Error) => t.fail(e.message));
+      .catch((err: Error) => t.fail(err.message));
   });
 }
 
@@ -39,7 +38,7 @@ test('Disallow', t => {
     .set('Origin', 'http://foo.bar')
     .expect(StatusCode.FORBIDDEN, 'Origin foo.bar not allowed.')
     .then(() => t.pass())
-    .catch((e: Error) => t.fail(e.message));
+    .catch((err: Error) => t.fail(err.message));
 });
 
 test('Invalid origin', t => {
@@ -48,7 +47,7 @@ test('Invalid origin', t => {
     .set('Origin', 'foo.bar')
     .expect(StatusCode.SERVER_ERROR)
     .then(() => t.pass())
-    .catch((e: Error) => t.fail(e.message));
+    .catch((err: Error) => t.fail(err.message));
 });
 
 test('No origin', t => {
@@ -56,5 +55,5 @@ test('No origin', t => {
     .get('/')
     .expect(StatusCode.FORBIDDEN, 'Could not determine origin')
     .then(() => t.pass())
-    .catch((e: Error) => t.fail(e.message));
+    .catch((err: Error) => t.fail(err.message));
 });

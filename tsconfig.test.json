@@ -1,11 +1,11 @@
 {
-  "extends": "./tsconfig",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "sourceMap": true,
     "declaration": true
   },
   "include": [
-    "./src/**/*.ts",
-    "./test/**/*.ts"
+    "src",
+    "test"
   ]
 }

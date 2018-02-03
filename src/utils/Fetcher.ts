@@ -22,7 +22,7 @@ export function fetchHTML(user: string, to?: string): Promise<string> {
         reject(err);
       } else if (!data) {
         reject(new Error('no body'));
-      } else if (rsp.statusCode >= StatusCode.BAD_REQUEST) { // tslint:disable-line:no-magic-numbers
+      } else if (rsp.statusCode >= StatusCode.BAD_REQUEST) {
         reject(new Error(rsp.statusMessage));
       } else {
         resolve(data);

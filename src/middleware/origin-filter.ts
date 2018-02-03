@@ -1,4 +1,4 @@
-import {RequestHandler} from 'express';
+import {Request, RequestHandler, Response} from 'express';
 import {URL} from 'url';
 import {StatusCode} from '../utils/StatusCode';
 
@@ -8,8 +8,8 @@ if (process.env.ALLOWED_ORIGINS) {
   const allowed: string[] = process.env.ALLOWED_ORIGINS.toLowerCase()
     .split(/\s*,\s*/);
 
-  originFilter = (req, res, next) => {
-    const origin = req.header('origin');
+  originFilter = (req: Request, res: Response, next: any): void => {
+    const origin: string = req.header('origin');
 
     if (!origin) {
       res.status(StatusCode.FORBIDDEN).end('Could not determine origin');
@@ -17,7 +17,7 @@ if (process.env.ALLOWED_ORIGINS) {
       return;
     } else {
       try {
-        const hostname = new URL(origin).hostname.toLowerCase();
+        const hostname: string = new URL(origin).hostname.toLowerCase();
 
         if (!allowed.includes(hostname)) {
           res.status(StatusCode.FORBIDDEN).end(`Origin ${hostname} not allowed.`);
@@ -31,7 +31,7 @@ if (process.env.ALLOWED_ORIGINS) {
     }
   };
 } else {
-  originFilter = ((req, res, next) => {
+  originFilter = ((_req: Request, res: Response, next: any) => {
     res.header('Access-Control-Allow-Origin', '*');
     setImmediate(next);
   });

@@ -1,6 +1,6 @@
 import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import {Request, Response} from 'express';
-import {Controller, ControllerMiddleware, GET, RouteMiddleware} from 'express-decorated-router/dist';
+import {Controller, ControllerMiddleware, GET, RouteMiddleware} from 'express-decorated-router';
 import shrinkRay = require('shrink-ray-current');
 import {allowedUsers} from './middleware/name-filter';
 import {originFilter} from './middleware/origin-filter';
@@ -65,7 +65,7 @@ export class RootController {
       .then((data: IParsedPayload) => {
         res.json(data);
       })
-      .catch(e => {
+      .catch((e: any) => {
         res.status(StatusCode.SERVER_ERROR).end(e.message || e);
       });
   }
