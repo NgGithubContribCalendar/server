@@ -19,10 +19,12 @@
     "declaration": false,
     "noImplicitAny": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "rootDir": "."
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules/@types/express-serve-static-core/index.d.ts"
   ]
 }

@@ -1,6 +1,7 @@
 /.idea/
 /node_modules/
 *.js
+!patch-express-serve-static-core.js
 *.map
 *.tgz
 *.d.ts
