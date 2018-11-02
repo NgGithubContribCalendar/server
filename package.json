@@ -53,7 +53,7 @@
     "redis": "^2.8.0",
     "request": "^2.83.0",
     "rimraf": "^2.6.2",
-    "shrink-ray-current": "^2.1.0",
+    "shrink-ray-current": "^3.0.0",
     "throng": "^4.0.0",
     "tslib": "^1.8.0",
     "typescript": "^3.0.0",
